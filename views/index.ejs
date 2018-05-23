@@ -32,6 +32,15 @@
         <h1>Microblog <small>share your thoughts</small></h1>
       </div>
     </div>
+    <div class="container">
+      <% if(!user) { %>
+          <a href="/login">Log in</a>
+          <a href="/signup">Sign up</a>
+        <% } else { %>
+          <div>Welcome, <%= user.username %>!</div>
+          <a href="/logout">Log out</a>
+          <% } %>
+    </div>
   </div>
 
   <!-- page content -->
@@ -40,6 +49,10 @@
       <div class="col-md-12">
 
         <!-- new post form-->
+      <% if(error){%>
+      <p><%= error %> </p>
+      <% } %>
+      <% if (user) { %>
         <form class="form-inline" id="create-post" method="POST" action="/posts">
           <div class="form-group">
             <input type="text" name="title" class="form-control" placeholder="Title" autofocus>
@@ -51,6 +64,7 @@
             <input type="submit" class="btn btn-default" value="Add Post">
           </div>
         </form>
+        <% } %>
         <br>
 
         <!-- list of posts -->
@@ -64,7 +78,7 @@
 
                 <!-- post description -->
                 <%= post.description %>
-
+                <% if (user) {%>
                 <div class="pull-right">
                   <!-- pencil icon to toggle update form -->
                   <a href="javascript:void(0)" data-toggle="collapse" data-target="#update-<%= post._id %>">
@@ -78,6 +92,8 @@
                     </button>
                   </form>
                 </div>
+                <% } %>
+
 
                 <!-- form to update post -->
                 <div class="collapse" id="update-<%= post._id %>">

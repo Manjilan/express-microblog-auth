@@ -1,6 +1,6 @@
 var mongoose = require("mongoose");
-mongoose.Promise = global.Promise;
 
-mongoose.connect("mongodb://localhost/microblog-app", {useMongoClient: true, });
+mongoose.connect("mongodb://localhost/microblog-app", {promiseLibrary: global.Promise });
 
 module.exports.Post = require("./post");
+module.exports.User = require("./user");
